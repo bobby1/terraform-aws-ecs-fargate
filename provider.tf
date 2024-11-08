@@ -1,7 +1,6 @@
 # Configure the AWS Provider
 provider "aws" {
   region = var.region
-
 }
 terraform {
   required_providers {
@@ -11,7 +10,6 @@ terraform {
     }
   }
 }
-
 terraform {
   backend "s3" {
     bucket         = "b1dev-terraform-state"

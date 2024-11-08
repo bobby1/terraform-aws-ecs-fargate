@@ -1,5 +1,7 @@
-resource "aws_ecs_task_definition" "devopsuncut_td" {
-  family                   = "${var.business_divsion}-${var.environment}-webpage"
+# resource "aws_ecs_task_definition" "devopsuncut_td" {
+resource "aws_ecs_task_definition" "task_definition" {
+  # family                   = "${var.business_divsion}-${var.environment}-webpage"
+  family                   = "devops-webpage"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = 2048
@@ -11,7 +13,7 @@ resource "aws_ecs_task_definition" "devopsuncut_td" {
     "image": "httpd:latest",
     "cpu": 2048,
     "memory": 4096,
-    "name": "devops-uncut-webpage",
+    "name": "devops-webpage",
     "networkMode": "awsvpc",
     "portMappings": [
       {
