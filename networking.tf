@@ -2,15 +2,12 @@
 data "aws_availability_zones" "available" {
   state = "available"
 }
-
 ### Create the VPC
 resource "aws_vpc" "main" {
   cidr_block       = var.vpc_cidr
   instance_tenancy = "default"
   tags = {
-    Name             = "${var.business_division}-${var.environment}-main_vpc"
-    business_divsion = var.business_division
-    environment      = var.environment
+    Name = "${var.business_division}-${var.environment}-main_vpc"
   }
 }
 ### Create the public subnet - 2 
@@ -21,29 +18,21 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
   tags = {
-    Name             = "${var.business_division}-${var.environment}-public_subnet-${count.index}"
-    business_divsion = var.business_division
-    environment      = var.environment
+    Name = "${var.business_division}-${var.environment}-public_subnet-${count.index}"
   }
 }
 ### Create internet gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
-
   tags = {
-    Name             = "${var.business_division}-${var.environment}-main_igw"
-    business_divsion = var.business_division
-    environment      = var.environment
+    Name = "${var.business_division}-${var.environment}-main_igw"
   }
 }
 ### Public route table
 resource "aws_route_table" "rtb-public" {
   vpc_id = aws_vpc.main.id
-
   tags = {
-    Name             = "${var.business_division}-${var.environment}-Public-RT"
-    business_divsion = var.business_division
-    environment      = var.environment
+    Name = "${var.business_division}-${var.environment}-Public-RT"
   }
 }
 # We use the count meta argument to dynamically retrieve the id’s of our public subnet that were dynamically generated.
@@ -63,9 +52,7 @@ resource "aws_subnet" "private" {
   vpc_id     = aws_vpc.main.id
   cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index + 2)
   tags = {
-    Name             = "${var.business_division}-${var.environment}-private_subnet-${count.index}"
-    business_divsion = var.business_division
-    environment      = var.environment
+    Name = "${var.business_division}-${var.environment}-private_subnet-${count.index}"
   }
 }
 resource "aws_eip" "eip" {
@@ -76,9 +63,7 @@ resource "aws_nat_gateway" "ngw" {
   subnet_id     = aws_subnet.public[0].id
   # NAT gateway is created in the public subnet but used by the private subnet
   tags = {
-    Name             = "${var.business_division}-${var.environment}-gw NAT"
-    business_divsion = var.business_division
-    environment      = var.environment
+    Name = "${var.business_division}-${var.environment}-gw NAT"
   }
 }
 # To ensure proper ordering, it is recommended to add an explicit dependency
@@ -86,9 +71,7 @@ resource "aws_nat_gateway" "ngw" {
 resource "aws_route_table" "rtb-private" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name             = "${var.business_division}-${var.environment}-Public-RT"
-    business_divsion = var.business_division
-    environment      = var.environment
+    Name = "${var.business_division}-${var.environment}-Public-RT"
   }
 }
 resource "aws_route" "rtb-private-route" {

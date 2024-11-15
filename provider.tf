@@ -1,6 +1,12 @@
 # Configure the AWS Provider
 provider "aws" {
   region = var.region
+  default_tags {
+    tags = {
+      business_divsion = var.business_division
+      environment      = var.environment
+    }
+  }
 }
 terraform {
   required_providers {

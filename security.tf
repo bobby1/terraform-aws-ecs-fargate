@@ -17,7 +17,6 @@ resource "aws_security_group" "lb2" {
     cidr_blocks = var.egress_cidr_blocks[var.environment]
   }
 }
-
 resource "aws_security_group" "ecs_tasks2" {
   name        = "${var.business_division}-${var.environment}-ecs-tasks-sg2"
   description = "allow inbound access from the ALB only"
