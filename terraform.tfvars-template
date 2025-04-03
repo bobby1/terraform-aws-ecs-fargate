@@ -1,0 +1,6 @@
+# locals varible settings
+business_division = "<business_division_name>"
+environment       = "<environment>" ## options are "dev", "stg", "prd"
+service           = "ecs"   # service name by AWS default
+region            = "<aws_region>" # AWS region name, e.g. us-east-1, eu-west-1, etc.
+vpc_cidr          = "10.0.0.0/16"   # VPC CIDR block
