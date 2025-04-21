@@ -18,10 +18,10 @@ terraform {
 }
 terraform {
   backend "s3" {
-    bucket         = "b1dev-terraform-state"
-    key            = "dev/ecs/terraform.tfstate"
-    region         = "us-west-1"
-    dynamodb_table = "devops-ecs-terraform-locking"
-    encrypt        = true
+    bucket       = "b1dev-terraform-state"
+    key          = "dev/ecs/terraform.tfstate"
+    region       = "us-west-1"
+    use_lockfile = true
+    encrypt      = true
   }
 }

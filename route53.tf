@@ -6,8 +6,8 @@ resource "aws_route53_record" "www" {
   name    = "${var.business_division}-${var.environment}-wen.org"
   type    = "A"
   alias {
-    name                   = aws_lb.cluster_lb2.dns_name
-    zone_id                = aws_lb.cluster_lb2.zone_id
+    name                   = aws_lb.cluster_lb.dns_name
+    zone_id                = aws_lb.cluster_lb.zone_id
     evaluate_target_health = true
   }
 }

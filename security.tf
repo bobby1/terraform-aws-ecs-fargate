@@ -1,6 +1,6 @@
-resource "aws_security_group" "lb2" {
+resource "aws_security_group" "lb" {
   description = "controls access to the Application Load Balancer (ALB)"
-  name        = "${var.business_division}-${var.environment}-lb-sg2"
+  name        = "${var.business_division}-${var.environment}-lb-sg"
   vpc_id      = aws_vpc.main.id
   ingress {
     description = "Cidr Blocks and ports for Ingress security"
@@ -17,8 +17,8 @@ resource "aws_security_group" "lb2" {
     cidr_blocks = var.egress_cidr_blocks[var.environment]
   }
 }
-resource "aws_security_group" "ecs_tasks2" {
-  name        = "${var.business_division}-${var.environment}-ecs-tasks-sg2"
+resource "aws_security_group" "ecs_tasks" {
+  name        = "${var.business_division}-${var.environment}-ecs-tasks-sg"
   description = "allow inbound access from the ALB only"
   vpc_id      = aws_vpc.main.id
   ingress {
@@ -26,7 +26,7 @@ resource "aws_security_group" "ecs_tasks2" {
     from_port       = 80
     to_port         = 80
     cidr_blocks     = ["0.0.0.0/0"]
-    security_groups = [aws_security_group.lb2.id]
+    security_groups = [aws_security_group.lb.id]
   }
   egress {
     protocol    = "-1"
